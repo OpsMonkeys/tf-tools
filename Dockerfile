@@ -1,6 +1,6 @@
 FROM alpine:3.12.0
 
-ENV TF_13_VERSION=0.13.0
+ENV TF_13_VERSION=0.13.2
 ENV TF_12_VERSION=0.12.29
 ENV TERRAFORM_LINT_VERSION=0.15.2
 ENV TERRAFORM_DOCS_VERSION=0.9.1
@@ -33,7 +33,7 @@ RUN apk update && \
 
 WORKDIR /terraform
 
-ADD entrypoint.sh /entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
 
 RUN source ~/.bashrc && tfenv install ${TF_12_VERSION} && tfenv install ${TF_13_VERSION}
 
