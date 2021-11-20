@@ -5,7 +5,7 @@
 This repo contains the dockerfile for my Terraform Build Container. This is a lightweight container based off alpine that contains all the tools needed to provision work with Terraform:
 Includes:
 TFENV for managing Terraform versions (https://github.com/tfutils/tfenv)
-Installs both Terraform 0.12 and Terraform 0.13
+Installs both Terraform 0.12, 0.13, 0.14, 0.15, and 1 for all needs for versioning.
 Terraform-docs for generating documentation (https://github.com/terraform-docs/terraform-docs)
 TF Lint for linting of the code (https://github.com/terraform-linters/tflint)
 Terragrunt (https://github.com/gruntwork-io/terragrunt)
@@ -40,7 +40,7 @@ Anchore - This is the container vulnerability scanning engine, that can help ide
 
 Hadolint - This is a quick check for proper Dockerfile conventions and best practices
 
-Docker_build_push - This builds and publishes a new image to Dockerhub https://hub.docker.com/r/drkrazy/cfn-tools based off a github release tag - This requires a few Github secrets of `DOCKER_TOKEN` and `DOCKER_USERNAME` to be set in repo for Dockerhub user.
+Docker_build_push - This builds and publishes a new image to Dockerhub https://hub.docker.com/r/drkrazy/tf-tools based off a github release tag - This requires a few Github secrets of `DOCKER_TOKEN` and `DOCKER_USERNAME` to be set in repo for Dockerhub user.
 
 Autotagger - will auto tag on merge to the `main` branch, this will also kick off the above Docker_build_push to publish image to Dockerhub. This requires a Github secret of `GH_TOKEN` to be set in the repo
 
