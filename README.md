@@ -6,17 +6,28 @@ This repo contains the dockerfile for my Terraform Build Container. This is a li
 
 Includes:
 
-TFENV for managing Terraform versions (https://github.com/tfutils/tfenv)
+TFENV for managing Terraform versions (<https://github.com/tfutils/tfenv>)
 
-Installs both Terraform 0.12, 0.13, 0.14, 0.15, and 1 for all needs for versioning.
+Installs both Terraform 1 for all needs for versioning.
 
-Terraform-docs for generating documentation (https://github.com/terraform-docs/terraform-docs)
+Terraform-docs for generating documentation (<https://github.com/terraform-docs/terraform-docs>)
 
-TF Lint for linting of the code (https://github.com/terraform-linters/tflint)
+TF Lint for linting of the code (<https://github.com/terraform-linters/tflint>)
 
-Terragrunt (https://github.com/gruntwork-io/terragrunt)
+Terragrunt (<https://github.com/gruntwork-io/terragrunt>)
+
+Helmenv (<https://github.com/little-angry-clouds/kubernetes-binaries-managers/tree/master/cmd/helmenv>)
+
+Helm (managed by helmenv above)
+
+Kbenv (<https://github.com/little-angry-clouds/kubernetes-binaries-managers/tree/master/cmd/kbenv>)
+
+Kubernetescli (managed by kbenv above)
+
+Infracost for generating cross-cloud pricing (<https://github.com/infracost>)
 
 This container gets used locally, and in CI to make sure all build processes use same environment setup.
+
 ### How to work with the repo
 
 This is a pretty basic repo that contains the Dockerfile, a simple entry script, and the Makefile.
@@ -43,11 +54,11 @@ Targets:
 
 This repo has a few different Github Actions that are also running.
 
-Anchore - This is the container vulnerability scanning engine, that can help identify container issues. https://github.com/anchore/scan-action
+Anchore - This is the container vulnerability scanning engine, that can help identify container issues. <https://github.com/anchore/scan-action>
 
 Hadolint - This is a quick check for proper Dockerfile conventions and best practices
 
-Docker_build_push - This builds and publishes a new image to Dockerhub https://hub.docker.com/r/drkrazy/tf-tools based off a github release tag - This requires a few Github secrets of `DOCKER_TOKEN` and `DOCKER_USERNAME` to be set in repo for Dockerhub user.
+Docker_build_push - This builds and publishes a new image to Dockerhub <https://hub.docker.com/r/drkrazy/tf-tools> based off a github release tag - This requires a few Github secrets of `DOCKER_TOKEN` and `DOCKER_USERNAME` to be set in repo for Dockerhub user.
 
 Autotagger - will auto tag on merge to the `main` branch, this will also kick off the above Docker_build_push to publish image to Dockerhub. This requires a Github secret of `GH_TOKEN` to be set in the repo
 
