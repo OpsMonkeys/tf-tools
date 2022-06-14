@@ -4,6 +4,8 @@ TAG := latest
 GIT_TAG = $(shell git describe --tags $(git rev-list --tags --max-count=1) | sed s/v//g)
 PACKAGE_VERSION = $(shell cat package.json| jq -r '.version')
 IMAGE_TAG := ${DOCKER_REGISTRY_URL}/library/tf-tools
+PACKAGE_VERSION = $(shell cat package.json| jq -r '.version')
+NEXT_VERSION=$(shell echo ${PACKAGE_VERSION} | awk -F. -v OFS=. '{$$NF += 1 ; print}')
 
 build: ## Build the docker container and tag as latest
 	docker build -t ${IMAGE_TAG}:${TAG} .
@@ -38,6 +40,15 @@ check-version: ## Checks for the required version bump
 	fi
 	@echo "\033[36m"Version Check Complete"\033[0m"
 .PHONY: check-version
+
+bump-version: ## bump minor version
+	@echo "Current version in repo is \033[0;31m${PACKAGE_VERSION}\033[0m"; \
+	echo "New version will be \033[0;32m${NEXT_VERSION}\033[0m"; \
+	jq '.version = "${NEXT_VERSION}"' package.json > tmp_package.json; \
+	rm package.json; \
+	mv tmp_package.json package.json; \
+	echo "Version now set to \033[36m${NEXT_VERSION}\033[0m"
+.PHONY: bump-version
 
 prepare-pr: hadolint build grype check-version ## Runs grype, and hadolint to check for issues with container before your PR
 	@echo "\033[36m"Done Running PR Checks"\033[0m"

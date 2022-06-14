@@ -1,25 +1,26 @@
-FROM alpine:3.15
+FROM alpine:3.16
 
-ENV TF_1_VERSION=1.1.7
-ENV TERRAFORM_LINT_VERSION=0.35.0
+ENV TF_1_VERSION=1.2.2
+ENV TERRAFORM_LINT_VERSION=0.37.0
 ENV TERRAFORM_DOCS_VERSION=0.16.0
-ENV TERRAGRUNT_VERSION=0.36.6
-ENV INFRACOST_VERSION=0.9.20
+ENV TERRAGRUNT_VERSION=0.37.3
+ENV INFRACOST_VERSION=0.10.3
 ENV KBENV_VERSION=0.3.1
 ENV KUBECTL_121_VERSION=1.21.11
-ENV KUBECTL_122_VERSION=1.22.7
+ENV KUBECTL_122_VERSION=1.22.10
 ENV HELMENV_VERSION=0.3.1
-ENV HELM_VERSION=3.7.2
+ENV HELM_VERSION=3.9.0
+ENV TFSEC_VERSION=1.24.0
 
 WORKDIR /bin
 
 RUN apk update && \
     apk add --no-cache \
-    bash=5.1.16-r0 \
-    curl=7.80.0-r0 \
-    git=2.34.1-r0 \
-    perl-utils=5.34.0-r1 \
-    wget=1.21.2-r2 \
+    bash=5.1.16-r2 \
+    curl=7.83.1-r1 \
+    git=2.36.1-r0 \
+    perl-utils=5.34.1-r0 \
+    wget=1.21.3-r0 \
     unzip=6.0-r9 \
     tar=1.34-r0 \
     && \
@@ -32,6 +33,8 @@ RUN apk update && \
     wget -qO infracost-linux-amd64.tar.gz https://github.com/infracost/infracost/releases/download/v${INFRACOST_VERSION}/infracost-linux-amd64.tar.gz && \
     wget -qO kbenv-linux-amd64.tar.gz https://github.com/little-angry-clouds/kubernetes-binaries-managers/releases/download/${KBENV_VERSION}/kbenv-linux-amd64.tar.gz && \
     wget -qO helmenv-linux-amd64.tar.gz https://github.com/little-angry-clouds/kubernetes-binaries-managers/releases/download/${HELMENV_VERSION}/helmenv-linux-amd64.tar.gz && \
+    wget -qO tfsec https://github.com/aquasecurity/tfsec/releases/download/v${TFSEC_VERSION}/tfsec-linux-amd64 && \
+    wget -qO tfsec-checkgen https://github.com/aquasecurity/tfsec/releases/download/v${TFSEC_VERSION}/tfsec-checkgen-linux-amd64 && \
     tar -xzf terraform-docs.tar.gz && \
     tar xzf infracost-linux-amd64.tar.gz && \
     tar xzf kbenv-linux-amd64.tar.gz && \
@@ -47,7 +50,7 @@ RUN apk update && \
     rm infracost-linux-amd64.tar.gz && \
     rm kbenv-linux-amd64.tar.gz && \
     rm helmenv-linux-amd64.tar.gz && \
-    chmod +x terraform-docs tflint terragrunt infracost kbenv kubectl helmenv helm && \
+    chmod +x terraform-docs tflint terragrunt infracost kbenv kubectl helmenv helm tfsec tfsec-checkgen && \
     . ~/.bashrc && \
     apk del \
     git \
