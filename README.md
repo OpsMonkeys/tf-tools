@@ -26,6 +26,8 @@ Kubernetescli (managed by kbenv above)
 
 Infracost for generating cross-cloud pricing (<https://github.com/infracost>)
 
+TFSec For writing policy as code checks (https://github.com/aquasecurity/tfsec)
+
 This container gets used locally, and in CI to make sure all build processes use same environment setup.
 
 ### How to work with the repo
@@ -45,9 +47,10 @@ Targets:
   tag         Tag the docker image
   grype       Runs grype locally - you need to have it installed first (https://github.com/anchore/grype)
   hadolint    Runs hadolint locally - you need to have it installed first (https://github.com/hadolint/hadolint)
+  check-version  Checks for the required version bump
+  bump-version  bump minor version
   prepare-pr  Runs grype, and hadolint to check for issues with container before your PR
   help        show this usage
-  
 ```
 
 ### PR Checks and Github Actions
