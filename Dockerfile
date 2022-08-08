@@ -19,11 +19,11 @@ RUN apk update && \
     apk add --no-cache \
     bash=5.1.16-r2 \
     curl=7.83.1-r2 \
-    git=2.36.2-r0 \
     perl-utils=5.34.1-r0 \
     wget=1.21.3-r0 \
     unzip=6.0-r9 \
     tar=1.34-r0 \
+    git=2.36.2-r0 \
     && \
     mkdir ~/.tfenv && \
     git clone https://github.com/tfutils/tfenv.git ~/.tfenv && \
@@ -53,9 +53,6 @@ RUN apk update && \
     rm helmenv-linux-amd64.tar.gz && \
     chmod +x terraform-docs tflint terragrunt infracost kbenv kubectl helmenv helm tfsec tfsec-checkgen && \
     . ~/.bashrc && \
-    apk del \
-    git \
-    && \
     rm -rf /var/cache/apk/*
 
 WORKDIR /terraform
